@@ -233,7 +233,7 @@ pub fn uumain(args: impl uucore::Args) -> UResult<()> {
                 // it may cause a panic of chrono::datetime::DateTime add
                 match current_time.checked_add_signed(relative_time) {
                     Some(date) => {
-                        let iter = std::iter::once(Ok(date));
+                        let iter = std::iter::once(Ok(date.with_timezone(now.offset())));
                         Box::new(iter)
                     }
                     None => {
