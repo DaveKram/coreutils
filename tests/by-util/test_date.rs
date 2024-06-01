@@ -136,8 +136,11 @@ fn test_date_rfc_8601_date() {
 
 #[test]
 fn test_date_utc() {
+    let scene = TestScenario::new(util_name!());
+
+    let re = Regex::new(r"^\w{3}\s\w{3}\s{2}\d\s\d{2}:\d{2}:\d{2}\s\d{1,}\n$").unwrap();
     for param in ["--universal", "--utc", "--uni", "--u"] {
-        new_ucmd!().arg(param).succeeds();
+        scene.ucmd().arg(param).succeeds().stdout_matches(&re);
     }
 }
 
